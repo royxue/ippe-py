@@ -1,6 +1,5 @@
 import numpy as np
 from homo2d import homography2d
-from ippe import IPPE_dec
 import cv2
 
 def ippe(U, Q, mtx, dist):
@@ -11,7 +10,6 @@ def ippe(U, Q, mtx, dist):
     Q = Q.reshape(1, Q.shape[0], 2)
     Q = cv2.undistortPoints(Q, mtx, dist)
     Q = Q.reshape(k, 2)
-    Q = Q[::-1]
     return perspectiveIPPE(U.T, Q.T)
 
 def perspectiveIPPE(U, Q, hEstMethod='DLT'):
