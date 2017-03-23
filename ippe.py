@@ -50,7 +50,8 @@ def perspectiveIPPE(U, Q, hEstMethod='DLT'):
 
     if modelDims == 2:
         # Zero center the model points
-        Pbar = np.vstack((np.mean(U[:1]), 0))
+        # Zero center the model points
+        Pbar = np.vstack((np.mean(U, axis=1, keepdims=True), 0))
         U[0,:] = U[0,:]-Pbar[0]
         U[1,:] = U[1,:]-Pbar[1]
     else:
