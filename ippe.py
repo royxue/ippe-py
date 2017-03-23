@@ -247,11 +247,17 @@ def IPPE_dec(v, J):
 
     # Calculate the correction rotation Rv
     t = np.linalg.norm(v)
-    s = np.linalg.norm(np.vstack((v, 1)))
-    costh = 1./s
-    sinth = np.sqrt(1-1./s**2)
-    Kcrs = 1./t*(np.vstack([np.hstack([np.zeros((2, 2)),v]), np.hstack([-v.T, np.zeros((1, 1))])]))
-    Rv = np.eye(3) + sinth*Kcrs + (1.-costh)*Kcrs.dot(Kcrs)
+    
+    if t<np.finfo(float).eps:
+        #the plane is fronto-parallel to the camera, so set the corrective rotation Rv to identity. There will be only one solution to pose.
+        Rv = np.eye(3)
+    else:
+        #the plane is not fronto-parallel to the camera, so set the corrective rotation Rv
+        s = np.linalg.norm(np.vstack((v, 1)))
+        costh = 1./s
+        sinth = np.sqrt(1-1./s**2)
+        Kcrs = 1./t*(np.vstack([np.hstack([np.zeros((2, 2)),v]), np.hstack([-v.T, np.zeros((1, 1))])]))
+        Rv = np.eye(3) + sinth*Kcrs + (1.-costh)*Kcrs.dot(Kcrs)
 
     # Set up 2x2 SVD decomposition
     B = np.hstack((np.eye(2),-v)).dot(Rv[:,0:2])
