@@ -24,3 +24,5 @@ author={Collins, Toby and Bartoli, Adrien},
 pages={252-286},
 language={English}
 }
+
+Basically, this implementation follows the rules in this webpage: [https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html](https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html)
