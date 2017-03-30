@@ -2,7 +2,7 @@ import numpy as np
 from homo2d import homography2d
 import cv2
 
-def ippe(U, Q, mtx, dist):
+def run(U, Q, mtx, dist):
     """
     Preprocoess the Q matrix and then call IPPE function
     """
@@ -12,13 +12,14 @@ def ippe(U, Q, mtx, dist):
     Q = Q.reshape(k, 2)
     return perspectiveIPPE(U.T, Q.T)
 
-def perspectiveIPPE(U, Q, hEstMethod='DLT'):
+def mat_run(U, Q, hEstMethod='DLT'):
     """
     The solution to Perspective IPPE with point correspondences computed
     between points in world coordinates on the plane z=0, and normalised points in the
     camera's image.
     
-    Inputs:
+    Parameters
+    ----------
     U: 2xN or 3xN matrix holding the model points in world coordinates. If U
         is 2xN then the points are defined in world coordinates on the plane z=0
 
@@ -31,7 +32,8 @@ def perspectiveIPPE(U, Q, hEstMethod='DLT'):
         from Peter Kovesi's implementation at http://www.csse.uwa.edu.au/~pk.
     
         
-    Outputs:
+    Return
+    ---------
     IPPEPoses: A Python dictionary that contains 2 sets of pose solution from IPPE including rotation matrix
         translation matrix, and reprojection error
     """
@@ -233,12 +235,14 @@ def IPPE_dec(v, J):
     """
     Calculate 2 solutions to rotate from J Jacobian of the model-to-plane homography H
 
-    Inputs 
+    Parameters
+    ----------
     v: 2x1 vector holding the point in normalised pixel coordinates which maps by H^-1 to 
         the point (0,0,0) in world coordinates.
     J: 2x2 Jacobian matrix of H at (0,0).
 
-    Outputs:
+    Return
+    ---------
     R1: 3x3 Rotation matrix (first solution)
     R2: 3x3 Rotation matrix (second solution)
     gamma: The positive real-valued inverse-scale factor.
