@@ -103,7 +103,9 @@ def mat_run(U: np.ndarray, Q: np.ndarray, hEstMethod: str = "DLT") -> dict:
     n = U.shape[1]
     modelDims = U.shape[0]
 
-    Uuncentred = U
+    # Keep the original (uncentred) points for the reprojection error: the 2D
+    # branch below centres ``U`` in place, so this must be a copy.
+    Uuncentred = U.copy()
 
     if modelDims == 2:
         # Zero-centre the model points.
@@ -112,7 +114,7 @@ def mat_run(U: np.ndarray, Q: np.ndarray, hEstMethod: str = "DLT") -> dict:
         U[1, :] = U[1, :] - Pbar[1]
     else:
         # Rotate the model points onto the plane z=0 and zero-centre them.
-        Pbar = np.mean(U[:1])
+        Pbar = np.mean(U, axis=1)
         MCenter = np.eye(4)
         MCenter[0:3, -1] = -Pbar
         U_ = MCenter[0:3, :].dot(np.vstack((U, np.ones((1, U.shape[1])))))
