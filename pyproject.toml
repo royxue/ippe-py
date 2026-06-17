@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ippe"
+version = "0.1.0"
+description = "Python implementation of Infinitesimal Plane-based Pose Estimation (IPPE)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE.txt" }
+authors = [
+    { name = "Toby Collins", email = "toby.collins@gmail.com" },
+    { name = "Roy Xue", email = "xljroy@gmail.com" },
+]
+keywords = ["ippe", "pose-estimation", "computer-vision", "homography", "pnp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = ["numpy>=1.17"]
+
+[project.optional-dependencies]
+opencv = ["opencv-python>=4.0"]
+test = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "ruff", "build"]
+
+[project.urls]
+Homepage = "https://github.com/royxue/ippe_py"
+Repository = "https://github.com/royxue/ippe_py"
+"Original MATLAB" = "https://github.com/tobycollins/IPPE"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
